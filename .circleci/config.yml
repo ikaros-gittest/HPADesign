@@ -3,7 +3,7 @@ version: 2.1
 executors:
   node-executor:
     docker:
-      - image: circleci/node:13.7.0
+          - image: circleci/node:13.7.0
 jobs:
   test:
     executor: node-executor
@@ -23,24 +23,25 @@ jobs:
           name: Install dependencies
           command: yarn
       - run:
+          name: Build
+          command: yarn build
+      - run:
           name: Deploy
           command: |
-          git config --global user.name "Circle CI"
-          git config --global user.email "<>"
-          git add -A
-          git commit -m "[ci skip] Deploy by CI"
-          git push -f https://github.com/ikaros-gittest/HPADesign
-          echo "deploy completed"
-
+            git config --global user.name "Circle CI"
+            git config --global user.email "<>"
+            git add -A
+            git commit -m "[ci skip] Deploy by CI"
+            git push -f https://github.com/ikaros-gittest/HPADesign.git master:master
+            echo "deploy completed"
 workflows:
   test-and-deploy:
     jobs:
       - test
       - deploy:
-        requires:
-          - test
-        filters:
-          branches:
-            only:
-              - master
-
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - master
