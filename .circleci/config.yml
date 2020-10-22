@@ -26,7 +26,7 @@ jobs:
           name: Deploy
           command: |
           git config --global user.name "Circle CI"
-          git config --globa user.email "<>"
+          git config --global user.email "<>"
           git add -A
           git commit -m "[ci skip] Deploy by CI"
           git push -f https://github.com/ikaros-gittest/HPADesign
